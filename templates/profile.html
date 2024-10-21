@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="icon" type="image/png" href="https://cdn.discordapp.com/avatars/1257264351686037526/b5c07c334d4fae0343fab163857604fb.png?size=1024">
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    cursor: url('cursor.cur') auto;
+}
+
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+#unmute-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 1;
+}
+
+#unmute-button:hover {
+    background-color: rgba(255, 0, 0, 1);
+}
+
+.profile-container {
+            display: flex;
+            justify-content: center; /* Center the profile cards horizontally */
+            align-items: flex-start; /* Align cards at the start vertically */
+            width: 80%;
+            gap: 20px;
+            flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+            margin: 0 auto; /* Center the container itself */
+        }
+
+.profile-card {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    width: 350px;
+    text-align: center;
+    margin: 10px;
+    transition: transform 0.1s, box-shadow 0.3s;
+}
+
+.profile-card:hover {
+    box-shadow: 0 0 30px 10px rgb(255, 0, 0);
+}
+
+.profile-card img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+.profile-card h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.telegram-logo {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50%;
+    margin-top: 5px;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgb(255, 0, 0);
+}
+
+#click-anywhere {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    text-align: center;
+    color: #ffffff;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
+}
+@media (max-width: 768px) {
+            .profile-card {
+                width: 80%; /* Use a smaller width for mobile devices */
+                margin: 10px 0; /* Adjust margin */
+            }
+            #unmute-button {
+                font-size: 1em; /* Reduce button size */
+                padding: 8px 15px; /* Adjust button padding */
+            }
+            #click-anywhere {
+                font-size: 1.5em; /* Adjust text size */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-card {
+                width: 95%; /* Further reduce width on very small devices */
+            }
+            #unmute-button {
+                font-size: 0.9em; /* Reduce button size further */
+                padding: 5px 10px; /* Adjust button padding */
+            }
+            #click-anywhere {
+                font-size: 1.2em; /* Further adjust text size */
+            }
+        }
+
+</style>
+</head>
+<body>
+<div id="click-anywhere">Click anywhere to enter...</div>
+<div id="main-content" class="hidden">
+<video id="background-video" autoplay loop muted playsinline>
+<source src="https://cdn.discordapp.com/attachments/1297394558811901992/1298005431842504808/Ken_Carson_-_overseas_Official_Music_Video.mp4?ex=6717fd42&is=6716abc2&hm=b0b966e1d72331c07682a29cdb0e21ea540f0f2f4fd5222748fa8e8da4817b1e&" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+<button id="unmute-button">🔊</button>
+<div class="profile-container" id="profile-container">
+<div class="profile-card" id="profile1">
+<img id="avatar1" src="" alt="User 1 Avatar">
+<h1 id="username1"></h1>
+<a href="https://t.me/gator2x" target="_blank">
+<img class="telegram-logo" src="https://proxy-na1.bleed.bot/google?url=https://vladsydorchuk.github.io/htmlcssjs_introduce/images/telegram.png&fallback=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9l0t9SaEhasZZuxHXFGZWUSl0I0L2ty8mSg&s" alt="Telegram Logo">
+</a>
+</div>
+<div class="profile-card" id="profile2">
+<img id="avatar2" src="" alt="User 2 Avatar">
+<h1 id="username2"></h1>
+<a href="https://t.me/gator2x" target="_blank">
+<img class="telegram-logo" src="https://proxy-na1.bleed.bot/google?url=https://vladsydorchuk.github.io/htmlcssjs_introduce/images/telegram.png&fallback=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9l0t9SaEhasZZuxHXFGZWUSl0I0L2ty8mSg&s" alt="Telegram Logo">
+</a>
+</div>
+</div>
+</div>
+<script>
+const titleText = "Poorhub";
+let titleIndex = 0;
+const typingSpeed = 100;
+function typeTitle() {
+document.title = "";
+function typeNextChar() {
+if (titleIndex < titleText.length) {
+document.title += titleText.charAt(titleIndex);
+titleIndex++;
+setTimeout(typeNextChar, typingSpeed);
+}
+}
+typeNextChar();
+}
+typeTitle();
+function addTiltEffect(card) {
+card.addEventListener('mousemove', (event) => {
+const { offsetWidth: width, offsetHeight: height } = card;
+const { offsetX, offsetY } = event;
+const x = (offsetX / width) * 20 - 10;
+const y = (offsetY / height) * -20 + 10;
+card.style.transform = `perspective(500px) rotateY(${x}deg) rotateX(${y}deg)`;
+});
+card.addEventListener('mouseleave', () => {
+card.style.transform = 'perspective(500px) rotateY(0deg) rotateX(0deg)';
+});
+}
+const profile1 = document.getElementById('profile1');
+const profile2 = document.getElementById('profile2');
+addTiltEffect(profile1);
+addTiltEffect(profile2);
+async function fetchUserData(user1Id, user2Id) {
+try {
+const response = await fetch(`/user-data/${user1Id}/${user2Id}`);
+if (!response.ok) {
+throw new Error('Failed to fetch user data');
+}
+const data = await response.json();
+console.log(data);
+document.getElementById('username1').innerText = data.user1.username;
+document.getElementById('avatar1').src = data.user1.avatar_url;
+document.getElementById('username2').innerText = data.user2.username;
+document.getElementById('avatar2').src = data.user2.avatar_url;
+} catch (error) {
+console.error(error);
+}
+}
+fetchUserData('847574029770817598', '1290445241178132504');
+const video = document.getElementById('background-video');
+const unmuteButton = document.getElementById('unmute-button');
+unmuteButton.addEventListener('click', () => {
+if (video.muted) {
+video.muted = false;
+unmuteButton.innerText = "🔊";
+} else {
+video.muted = true;
+unmuteButton.innerText = "🔇";
+}
+});
+const clickAnywhereText = document.getElementById('click-anywhere');
+const mainContent = document.getElementById('main-content');
+document.addEventListener('click', function() {
+clickAnywhereText.style.display = 'none';
+mainContent.classList.remove('hidden');
+}, { once: true });
+</script>
+</body>
+</html>
